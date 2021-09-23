@@ -4,6 +4,8 @@ An online form which is designed to verify whether the given postcode, suburb, a
 ### Built with
 * [React](https://reactjs.org/)
 * [React Bootstrap](https://react-bootstrap.github.io/)
+* [ExpressJS](https://expressjs.com/)
+* [Superagent](https://visionmedia.github.io/superagent/)
 
 # Getting Started
 Instruction on setting up and running the project locally.
@@ -34,3 +36,13 @@ Instruction on setting up and running the project locally.
 ```
 npm test
 ```
+
+### TODO and Improvements
+- Use docker
+- Build using Webpack
+- Add linting
+- Unit test for client
+- Headless automation browser test for client
+- Unit and Integration test for server
+- Split form inputs into separate components
+- Use input hooks

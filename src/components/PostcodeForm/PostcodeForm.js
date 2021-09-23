@@ -8,17 +8,9 @@ import {
   Row
 } from 'react-bootstrap';
 import { MessageAlert } from '../../components';
+import { AUTH_KEY, SEARCH_URL } from '../../config';
+import { AU_STATES, generateAlertMessage } from '../../utils/helpers';
 import * as Superagent from 'superagent';
-
-// TODO: Move to separate file
-const states = {
-  NSW: 'New South Wales',
-  QLD: 'Queensland',
-  SA: 'South Australia',
-  TAS: 'Tasmania',
-  VIC: 'Victoria',
-  WA: 'West Australia'
-};
 
 export default function PostcodeForm() {
   const [state, setState] = useState('');
@@ -38,49 +30,24 @@ export default function PostcodeForm() {
     const suburb = e.target.suburb.value.toLowerCase();
 
     const requestBuilder = Superagent
-      .get('http://localhost:3000/api/search')
-      .query({ q: postCode });
+      .get(SEARCH_URL)
+      .query({ q: postCode })
+      .set('AUTH-KEY', AUTH_KEY);
 
     const response = await requestBuilder;
     const localities = JSON.parse(response.text);
+    const alertMessage = generateAlertMessage(
+      localities,
+      {
+        postCode,
+        suburb,
+        state
+      }
+    );
 
-    // TODO: Verfication of result can be move to a separate file
-
-    if (localities.length === 0) {
-      setAlertMessage({
-        type: 'danger',
-        message: `The postcode ${postCode} does not exist.`
-      });
-      return;
-    }
-
-    // Check suburb exists in the result
-    const suburbExist = localities.find((loc) => loc.location.toLowerCase() === suburb);
-
-    if (!suburbExist) {
-      setAlertMessage({
-        type: 'danger',
-        message: `The postcode ${postCode} does not match the suburb ${suburb}.`
-      });
-      return;
-    }
-
-    // If suburb exists in the result check if it has the same state
-    if (suburbExist.state !== state) {
-      setAlertMessage({
-        type: 'danger',
-        message: `The suburb ${suburb} does not exist in the state ${states[state]}.`
-      });
-      return;
-    }
-
-    setAlertMessage({
-      type: 'success',
-      message: 'The postcode, suburb and state entered are valid'
-    });
+    setAlertMessage(alertMessage);
   };
 
-  // TODO: Form validation
   return (
     <div>
       <Card>
@@ -112,7 +79,7 @@ export default function PostcodeForm() {
               <Col sm="10">
                 <Form.Control as="select" onChange={handleStateChange}>
                   <option>Select State</option>
-                  {Object.keys(states).map((state, i) => (<option key={i}>{state}</option>))}
+                  {Object.keys(AU_STATES).map((state, i) => (<option key={i}>{state}</option>))}
                 </Form.Control>
               </Col>
             </Form.Group>
