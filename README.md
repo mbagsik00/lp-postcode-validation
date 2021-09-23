@@ -23,7 +23,11 @@ Instruction on setting up and running the project locally.
    ```
 3. Run
    ```sh
-   npm start
+   npm run start
+   ```
+4. Open
+   ```
+   http://localhost:3000
    ```
 
 ### Running the test
