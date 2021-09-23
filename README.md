@@ -17,9 +17,9 @@ Instruction on setting up and running the project locally.
    ```sh
    git clone https://github.com/mbagsik00/lp-postcode-validation.git
    ```
-2. Install NPM packages
+2. Install client and server NPM packages
    ```sh
-   npm install
+   npm install && (cd server && npm install)
    ```
 3. Run
    ```sh
