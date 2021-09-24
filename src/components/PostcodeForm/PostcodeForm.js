@@ -10,7 +10,7 @@ import {
 import { MessageAlert } from '../../components';
 import { AUTH_KEY, SEARCH_URL } from '../../config';
 import { AU_STATES, generateAlertMessage } from '../../utils/helpers';
-import * as Superagent from 'superagent';
+import Superagent from 'superagent';
 
 export default function PostcodeForm() {
   const [state, setState] = useState('');
@@ -27,7 +27,7 @@ export default function PostcodeForm() {
     e.preventDefault();
 
     const postCode = e.target.postCode.value;
-    const suburb = e.target.suburb.value.toLowerCase();
+    const suburb = e.target.suburb.value;
 
     const requestBuilder = Superagent
       .get(SEARCH_URL)

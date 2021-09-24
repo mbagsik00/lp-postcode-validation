@@ -16,7 +16,7 @@ export function generateAlertMessage(localities, { postCode, suburb, state }) {
     }
 
     // Check suburb exists in the result
-    const suburbExist = localities.find((loc) => loc.location.toLowerCase() === suburb);
+    const suburbExist = localities.find((loc) => loc.location.toLowerCase() === suburb.toLowerCase());
 
     if (!suburbExist) {
         return {

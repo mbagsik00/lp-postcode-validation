@@ -46,7 +46,7 @@ npm test
 - Use TypeScript
 - Bundle using Webpack
 - Unit test for client
-- Headless automation browser test for client
+- Headless automation browser test for client using puppeteer
 - Unit and Integration test for server
 - Split form inputs into separate components
 - Use input hooks
