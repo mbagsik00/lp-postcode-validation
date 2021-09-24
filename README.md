@@ -42,9 +42,9 @@ npm test
 ```
 
 ### TODO and Improvements
-- Use docker
-- Build using Webpack
-- Add linting
+- Use Docker
+- Use TypeScript
+- Bundle using Webpack
 - Unit test for client
 - Headless automation browser test for client
 - Unit and Integration test for server
