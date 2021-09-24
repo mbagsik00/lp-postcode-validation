@@ -8,7 +8,7 @@ export const AU_STATES = {
 };
 
 export function generateAlertMessage(localities, { postCode, suburb, state }) {
-    if (localities.length === 0) {
+    if (!localities || localities.length === 0) {
         return {
             type: 'danger',
             message: `The postcode ${postCode} does not exist.`

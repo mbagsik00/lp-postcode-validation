@@ -23,11 +23,15 @@ Instruction on setting up and running the project locally.
    ```sh
    npm install && (cd server && npm install)
    ```
-3. Run
+3. Build client
+   ``` sh
+   npm run build
+   ```
+4. Run
    ```sh
    npm run start
    ```
-4. Open
+5. Open
    ```
    http://localhost:3000
    ```

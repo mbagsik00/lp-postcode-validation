@@ -1,12 +1,11 @@
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
 import Superagent from 'superagent';
 import { AUPOST_URL, PORT } from './config.js';
 
 const app = express();
 
-app.use(express.static(path.join(path.resolve(), '..', 'build')));
+app.use(express.static('../build'));
 app.use(cors());
 
 app.get('/api/search', async (req, res) => {
@@ -35,9 +34,13 @@ app.get('/api/search', async (req, res) => {
         const localities = parseResult.localities;
 
         if (localities) {
+            const locality = Array.isArray(localities.locality)
+                ? localities.locality
+                : [localities.locality];
+
             return res
                 .status(200)
-                .send(localities.locality);
+                .send(locality);
         }
 
         return res
