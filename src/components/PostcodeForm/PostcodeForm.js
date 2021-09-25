@@ -59,7 +59,7 @@ export default function PostcodeForm() {
                 Postcode
               </Form.Label>
               <Col sm="10">
-                <Form.Control type="text" maxLength="4" required/>
+                <Form.Control type="text" minLength="4" maxLength="4" required/>
               </Col>
             </Form.Group>
 
