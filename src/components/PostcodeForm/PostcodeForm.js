@@ -26,26 +26,32 @@ export default function PostcodeForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const postCode = e.target.postCode.value;
-    const suburb = e.target.suburb.value;
-
-    const requestBuilder = Superagent
-      .get(SEARCH_URL)
-      .query({ q: postCode })
-      .set('AUTH-KEY', AUTH_KEY);
-
-    const response = await requestBuilder;
-    const localities = JSON.parse(response.text);
-    const alertMessage = generateAlertMessage(
-      localities,
-      {
-        postCode,
-        suburb,
-        state
-      }
-    );
-
-    setAlertMessage(alertMessage);
+    try {
+      const postCode = e.target.postCode.value;
+      const suburb = e.target.suburb.value;
+  
+      const response = await Superagent
+        .get(SEARCH_URL)
+        .query({ postCode })
+        .set('AUTH-KEY', AUTH_KEY);
+  
+      const localities = JSON.parse(response.text);
+      const alertMessage = generateAlertMessage(
+        localities,
+        {
+          postCode,
+          suburb,
+          state
+        }
+      );
+  
+      setAlertMessage(alertMessage);
+    } catch (err) {
+      setAlertMessage({
+        type: 'danger',
+        message: err.message
+      });
+    }
   };
 
   return (

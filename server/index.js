@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import Superagent from 'superagent';
 import { AUPOST_URL, PORT } from './config.js';
+import { validateQueryParams } from './utils/validation.js';
 
 const app = express();
 
@@ -9,25 +10,15 @@ app.use(express.static('../build'));
 app.use(cors());
 
 app.get('/api/search', async (req, res) => {
-    const q = req.query.q;
-    const token = req.get('AUTH-KEY');
-
-    if (!q) {
-        return res
-            .status(400)
-            .send('Missing required query parameter "q"');
-    }
-
-    if (!token) {
-        return res
-            .status(401)
-            .send('Missing authentication token');
-    }
+    validateQueryParams(req);
 
     try {
+        const postCode = req.query.postCode;
+        const token = req.get('AUTH-KEY');
+
         const result = await Superagent
             .get(AUPOST_URL)
-            .query({ q })
+            .query({ q: postCode })
             .set('AUTH-KEY', token);
 
         const parseResult = JSON.parse(result.text);
